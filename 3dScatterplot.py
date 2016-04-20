@@ -17,8 +17,8 @@ for row in range(numofRows):
     print(round(xs,2),round(ys,2),round(zs,2))
     ax.scatter(xs, ys, zs, c='r',marker='o')
 
-ax.set_xlabel('Cancellation Rate')
-ax.set_ylabel('Ride Rate')
-ax.set_zlabel('Time to cancellation')
+ax.set_xlabel('Time to cancellation')
+ax.set_ylabel('Cancellation Rate')
+ax.set_zlabel('Ride Rate')
 
 plt.show()
