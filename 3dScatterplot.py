@@ -3,7 +3,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
 
-my_data = recfromcsv('RR_CR_CancelTime.csv', usecols=(3,4,5))
+my_data = recfromcsv('RR_CR_CancelTime_Small.csv', usecols=(3,4,5))
 numofRows = len(my_data)
 print("number of rows :- " + str(numofRows))
 diff = []
