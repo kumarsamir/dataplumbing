@@ -12,53 +12,26 @@ from matplotlib.colors import LogNorm
 def column(matrix, i):
     return [row[i] for row in matrix]
 
-array = []
 
-my_data = recfromcsv('PassengerCancelTimeGCJKT.csv', usecols=(0,1,2,3))
+
+my_data = recfromcsv('/Users/samir/PycharmProjects/Scatterplot/SINGAPORE First eta band vs CR.csv', usecols=(0,1,2,3))
 numrows = len(my_data)
 print("number of rows :- " + str(numrows))
-diff = []
+time_to_cancel = []
+first_eta =[]
+count=0
 for row in range(numrows):
-    cancellation_time = time.mktime(datetime.datetime.strptime(my_data[row][3], "%Y-%m-%d %H:%M:%S.%f").timetuple())
-    booking_time = time.mktime(datetime.datetime.strptime(my_data[row][2], "%Y-%m-%d %H:%M:%S.%f").timetuple())
-    delta= round(((cancellation_time-booking_time)/60),2)
-    diff.append(delta)
-    array.append(my_data[row])
+    time_to_cancel.append(my_data[row][3]/60)
+    first_eta.append(my_data[row][2]/60)
 
-#y = column(array,0)
-#z = column(array,0)
-lessThanOneMinute =0;
-oneToTwoMinutes =0;
-twoToThreeMinutes =0;
-threeToFourMinutes =0;
-fourToFiveMinutes =0;
-fiveToSixMinutes =0;
-sixToSevenMinutes =0;
-sevenToEightMinutes =0;
+bins = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
 
-for element in diff:
-    if (float(element) <1):
-        lessThanOneMinute+=1
-    elif (float(element)>1 and float(element)<=2):
-        oneToTwoMinutes+=1
-    elif (float(element) > 2 and float(element) <= 3):
-        twoToThreeMinutes +=1
-    elif (float(element) > 3 and float(element) <= 4):
-        threeToFourMinutes +=1
-    elif (float(element) > 4 and float(element) <= 5):
-        fourToFiveMinutes +=1
-    else:
-        fiveToSixMinutes+=1
-
-print(lessThanOneMinute, oneToTwoMinutes,twoToThreeMinutes,threeToFourMinutes, fourToFiveMinutes,  fiveToSixMinutes )
-ratio=100*(lessThanOneMinute/numrows)
-print ratio
-plt.hist(diff, bins=range(10))
-plt.ylabel('No of passengers')
-plt.xlabel('Time to Cancellation')
-plt.title('Pax Cancel Time - GC JKT',fontsize=24)
-plt.axis([0, 10, 0, 25000])
-plt.bar(10,10)
+plt.ylabel('# of bookings cancelled')
+plt.xlabel('FIRST ETA in mins')
+plt.title('First ETA vs # of cancelled bookings',fontsize=24)
+plt.hist(time_to_cancel,bins,histtype='bar',facecolor='g', alpha=0.75)
+plt.axis([0, 20, 0, 50000])
+plt.legend()
+plt.grid(True)
 plt.show()
-
 
